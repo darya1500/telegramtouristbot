@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +25,22 @@ public class TouristBot extends TelegramLongPollingBot {
     // Тут будет то, что выполняется при получении сообщения
     @Override
     public void onUpdateReceived(Update update) {
-       Message message = update.getMessage();
-        long chatId = message.getChatId();
-        if (message != null && message.hasText()) {
+        Message message = update.getMessage();
+        if (message!=null&&message.hasText()) {
             try {
-                String reply=CommandFactory.defineCommand(message).execute();
-                sendMsg(chatId,reply);
-            } catch (Exception e){//TelegramApiException e) {
+                long chatId = message.getChatId();
+                String reply = CommandFactory.defineCommand(message.getText()).execute();
+                sendMsg(chatId, reply);
+            } catch (Exception e) {//TelegramApiException e) {
                 //todo log
             }
+        }
+        else if (update.hasCallbackQuery()) {
+                String reply = CommandFactory.defineCommand(update.getCallbackQuery().getData()).execute();
+//                SendMessage sendMessage=new SendMessage().setText(reply)
+//                        .setChatId(update.getCallbackQuery().getMessage().getChatId());
+                sendMsg(update.getCallbackQuery().getMessage().getChatId(), reply);
+
         }
     }
 
@@ -70,15 +78,16 @@ public class TouristBot extends TelegramLongPollingBot {
      * Метод для настройки сообщения и его отправки.
      *
      * @param chatId id чата
-     * @param s      Строка, которую необходимот отправить в качестве сообщения.
+     * @param s      Строка, которую необходимо отправить в качестве сообщения.
      */
     public synchronized void sendMsg(long chatId, String s) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(chatId);
         sendMessage.setText(s);
-        setButtons(sendMessage);
-        //setInline2(sendMessage);
+
+setInline2(sendMessage);
+       // setButtons(sendMessage);
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
@@ -87,48 +96,48 @@ public class TouristBot extends TelegramLongPollingBot {
         }
     }
 
-//to create keyboard
-    public synchronized void setButtons(SendMessage sendMessage) {
-
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        sendMessage.setReplyMarkup(replyKeyboardMarkup);
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(false);
-
-        List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
-        KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton("Исследовать город"));
-        KeyboardRow keyboardSecondRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("Помощь"));
-        KeyboardRow keyboardThirdRow = new KeyboardRow();
-        keyboardSecondRow.add(new KeyboardButton("Выйти"));
-
-        keyboard.add(keyboardFirstRow);
-        keyboard.add(keyboardSecondRow);
-        keyboard.add(keyboardThirdRow);
-
-        replyKeyboardMarkup.setKeyboard(keyboard);
-    }
+//    //to create keyboard
+//    public synchronized void setButtons(SendMessage sendMessage) {
+//
+//        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+//        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+//        replyKeyboardMarkup.setSelective(true);
+//        replyKeyboardMarkup.setSelective(true);
+//        replyKeyboardMarkup.setResizeKeyboard(true);
+//        replyKeyboardMarkup.setOneTimeKeyboard(false);
+//
+//        List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+//        KeyboardRow keyboardFirstRow = new KeyboardRow();
+//        keyboardFirstRow.add(new KeyboardButton("Искать"));
+//        KeyboardRow keyboardSecondRow = new KeyboardRow();
+//        keyboardSecondRow.add(new KeyboardButton("Помощь"));
+//        KeyboardRow keyboardThirdRow = new KeyboardRow();
+//        keyboardSecondRow.add(new KeyboardButton("Выйти"));
+//
+//        keyboard.add(keyboardFirstRow);
+//        keyboard.add(keyboardSecondRow);
+//        keyboard.add(keyboardThirdRow);
+//
+//        replyKeyboardMarkup.setKeyboard(keyboard);
+//    }
 
     //to create keybord on the screen
-    private void setInline2(SendMessage sendMessage){
-        InlineKeyboardMarkup inlineKeyboardMarkup =new InlineKeyboardMarkup();
-        InlineKeyboardButton button1 = new InlineKeyboardButton();
-        button1.setText("Найти");
-        button1.setCallbackData("/find");
+    private void setInline2(SendMessage sendMessage) {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+//        InlineKeyboardButton button1 = new InlineKeyboardButton();
+//        button1.setText("Найти");
+//        button1.setCallbackData("/find");
         InlineKeyboardButton button2 = new InlineKeyboardButton();
         button2.setText("Помощь");
         button2.setCallbackData("/help");
-        InlineKeyboardButton button3 = new InlineKeyboardButton();
-        button3.setText("Выйти");
-        button3.setCallbackData("/stop");
+//        InlineKeyboardButton button3 = new InlineKeyboardButton();
+//        button3.setText("Выйти");
+//        button3.setCallbackData("/stop");
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(button1);
+        //keyboardButtonsRow1.add(button1);
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
         keyboardButtonsRow2.add(button2);
-        keyboardButtonsRow2.add(button3);
+        //keyboardButtonsRow2.add(button3);
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
         buttons.add(keyboardButtonsRow1);
         buttons.add(keyboardButtonsRow2);
@@ -136,17 +145,17 @@ public class TouristBot extends TelegramLongPollingBot {
         sendMessage.setReplyMarkup(inlineKeyboardMarkup);
     }
 
-    public synchronized void answerCallbackQuery(String callbackId, String message) {
-        AnswerCallbackQuery answer = new AnswerCallbackQuery();
-        answer.setCallbackQueryId(callbackId);
-        answer.setText(message);
-        answer.setShowAlert(true);
-        try {
-            answerCallbackQuery(answer);
-        } catch (TelegramApiException e) {
-            //todo
-        }
-    }
+//    public synchronized void answerCallbackQuery(String callbackId, String message) {
+//        AnswerCallbackQuery answer = new AnswerCallbackQuery();
+//        answer.setCallbackQueryId(callbackId);
+//        answer.setText(message);
+//        answer.setShowAlert(true);
+//        try {
+//            answerCallbackQuery(answer);
+//        } catch (TelegramApiException e) {
+//            //todo
+//        }
+//    }
 
 
 }

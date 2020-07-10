@@ -15,11 +15,6 @@ public enum CommandsConstants {
         {
             this.command = new FindCommand();
         }
-    },
-    STOP("/stop") {
-        {
-            this.command = new StopCommand();
-        }
     };
 
     String text;
