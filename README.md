@@ -11,5 +11,5 @@ Used: SpringBoot, Java 1.8, Maven, PostgreSQL
 + t.me/touristtelegram_bot
 + modification http://localhost:8080/swagger-ui.html
 
-![screenshot](bottest.PNG)
+![screenshot](https://github.com/darya1500/telegramtouristbot/blob/master/bottest.png)
 
