@@ -8,5 +8,7 @@ Project is deployed on Heroku.
 + t.me/touristtelegram_bot
 + modification http://localhost:8080/swagger-ui.html
 
++ Example:
+
 ![screenshot](https://github.com/darya1500/telegramtouristbot/blob/master/bottest.png)
 
