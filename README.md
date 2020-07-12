@@ -1,11 +1,8 @@
-Необходимо создать web приложение по управлению собственным туристическим телеграм ботом.
-    1) Телеграм бот выдает пользователю справочную информацию о введенном городе. Например, пользователь вводит: «Москва», чат-бот отвечает: «Не забудьте посетить Красную Площадь. Ну а в ЦУМ можно и не заходить)))».
-    2) Данные о городах должны храниться в базе данных.
-    3) Управлять данными о городах (добавлять новые города и информацию о них, изменять и удалять любую информацию) необходимо через REST WebService.
+Telegram bot that gives recommendations what to visit in each city. 
 
-Used: SpringBoot, Java 1.8, Maven, PostgreSQL 
-Исходный код приложения должен быть залит на GitHub, в файле readme указать, что необходимо для запуска (в том числе имя телеграм бота и его токен).
 
+Used: SpringBoot, Java 1.8, Maven, PostgreSQL, REST WebService. 
+Project is deployed on Heroku.
 + token 1379659363:AAFef_wY_4KOJx2iP0b4wgdnTlkUYYrKymk
 + bot user name TelegramTouristBot 
 + t.me/touristtelegram_bot
