@@ -1,34 +1,14 @@
 package by.resliv.daryatarasevich.telegramtouristbot.command;
 
+import by.resliv.daryatarasevich.telegramtouristbot.util.MessageConstants;
 
-public enum CommandsConstants {
-    START("/start") {
-        {
-            this.command = new StartCommand();
-        }
-    },
-    HELP("/help") {{
-        this.command = new HelpCommand();
-    }
-    },
-    FIND("/find") {
-        {
-            this.command = new FindCommand();
-        }
-    };
+/**
+ * Class with command constants.
+ *
+ * @author darya tarasevich
+ */
 
-    String text;
-    BasicCommand command;
-
-    CommandsConstants(String text) {
-        this.text = text;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public BasicCommand getCurrentCommand() {
-        return command;
-    }
+public class CommandsConstants {
+    public final static String START = MessageConstants.START;
+    public final static String HELP = MessageConstants.HELP2;
 }

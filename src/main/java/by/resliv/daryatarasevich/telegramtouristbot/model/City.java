@@ -1,14 +1,40 @@
 package by.resliv.daryatarasevich.telegramtouristbot.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+/**
+ * Entity class.
+ *
+ * @author darya tarasevich
+ */
+@Entity
+@Table(name = "cities", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "cities_unique_name_idx")})
 public class City {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int id;
+
+    @Column(name = "name")
+    @NotNull
     private String name;
+
+    @Column(name = "description")
+    @NotNull
     private String description;
+
+    public City() {
+    }
 
     public City(int id, String name, String description) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public City(@NotNull String name, @NotNull String description) {
         this.name = name;
         this.description = description;
     }

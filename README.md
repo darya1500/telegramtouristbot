@@ -3,9 +3,13 @@
     2) Данные о городах должны храниться в базе данных.
     3) Управлять данными о городах (добавлять новые города и информацию о них, изменять и удалять любую информацию) необходимо через REST WebService.
 
-Используемые технологии: SpringBoot, SpringMVC, SpringData, Hibernate, Java не ниже 1.8. Для сборки проекта использовать Maven.
+Used: SpringBoot, Java 1.8, Maven, PostgreSQL 
 Исходный код приложения должен быть залит на GitHub, в файле readme указать, что необходимо для запуска (в том числе имя телеграм бота и его токен).
 
 + token 1379659363:AAFef_wY_4KOJx2iP0b4wgdnTlkUYYrKymk
 + bot user name TelegramTouristBot 
 + t.me/touristtelegram_bot
++ modification http://localhost:8080/swagger-ui.html
+
+![screenshot](bottest.PNG)
+
