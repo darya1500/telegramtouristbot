@@ -6,6 +6,7 @@ Project is deployed on Heroku.
 + token 1379659363:AAFef_wY_4KOJx2iP0b4wgdnTlkUYYrKymk
 + bot user name TelegramTouristBot 
 + t.me/touristtelegram_bot
++ @touristtelegram_bot
 + modification http://localhost:8080/swagger-ui.html
 
 + Example:
